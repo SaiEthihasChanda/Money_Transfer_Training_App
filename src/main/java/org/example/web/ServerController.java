@@ -1,7 +1,9 @@
 package org.example.web;
 
+import org.example.dtos.TransferDto;
 import org.example.service.AccountService;
 import org.example.dtos.AccountDto;
+import org.example.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping
 public class ServerController {
 
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private TransactionService transactionService;
 
     @PostMapping("/accounts")
     public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto) {
-        System.out.println(accountDto.getName());
+        System.out.println(accountDto.getHolderName());
         accountService.createAccount(accountDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(accountDto);
     }
@@ -37,7 +41,7 @@ public class ServerController {
         }
     }
 
-    @GetMapping(value = "/accounts",params = { "!limit" })
+    @GetMapping(value = "/accounts")
     public ResponseEntity<?> getAllAccounts() {
         try {
             return ResponseEntity.ok(accountService.getAllAccounts());
@@ -48,6 +52,17 @@ public class ServerController {
         }
     }
 
+    @PostMapping(value="/transfer")
+    public ResponseEntity<?> transfer(@RequestBody TransferDto transferDto){
+        try {
+            transactionService.transfer(transferDto);
+            return ResponseEntity.ok("Transfer successful");
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
 
 
     @ExceptionHandler(Exception.class)

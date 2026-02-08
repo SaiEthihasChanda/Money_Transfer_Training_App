@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.dtos.TransferDto;
 import org.example.entity.Account;
 import org.example.repository.AccountRepository;
 import org.slf4j.Logger;
@@ -22,50 +23,21 @@ public class TransactionService implements TransactionServiceinterface {
 
     @Override
     @Transactional
-    public void transfer(int from, int to, int amount) {
-        Account fromaccount = accountRepository.findById((long) from).orElseThrow(()-> new RuntimeException("Todo not found"));
-        if(this.getBalance(from)>= amount) {
-            this.credit(to, amount);
-            this.debit(from, amount);
+    public void transfer(TransferDto transferDto) {
+        Account fromAccount = accountRepository.findById(transferDto.getFromAccountId()).orElseThrow(()-> new RuntimeException("Account not found"));
+        Account toAccount = accountRepository.findById(transferDto.getToAccountId()).orElseThrow(()-> new RuntimeException("Account not found"));
+
+        if(fromAccount.getBalance() >= transferDto.getAmount()){
+            toAccount.credit(transferDto.getAmount());
+            fromAccount.debit(transferDto.getAmount());
+            accountRepository.save(toAccount);
+            accountRepository.save(fromAccount);
+            logger.info("Transfer successful from account " + fromAccount.getId() + " to account " + toAccount.getId());
         }
         else{
-            logger.error("Insufficient balance, transaction aborted");
+            logger.error("Transfer failed - insufficient balance");
+            throw new RuntimeException("Insufficient balance for transfer");
         }
-
-    }
-
-    @Override
-    @Transactional
-    public void credit(int id, int amount){
-        Account toaccount = accountRepository.findById((long) id).orElseThrow(()-> new RuntimeException("Todo not found"));;
-        if (toaccount != null) {
-            toaccount.setBalance(toaccount.getBalance()+amount);
-            accountRepository.save(toaccount);
-        }
-
-
-    }
-
-    @Override
-    @Transactional
-    public void debit(int id,int amount){
-        Account fromaccount = accountRepository.findById((long) id).orElseThrow(()-> new RuntimeException("Todo not found"));;
-        if (fromaccount != null) {
-            fromaccount.setBalance(fromaccount.getBalance()-amount);
-            accountRepository.save(fromaccount);
-        }
-
-    }
-    @Override
-    @Transactional
-    public int getBalance(int id) {
-        Account account = accountRepository.findById((long) id).orElseThrow(()-> new RuntimeException("Account not found"));;
-
-            if (account != null) {
-                return account.getBalance();
-            }
-            return -1;
-
 
     }
 }
