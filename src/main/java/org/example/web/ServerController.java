@@ -3,40 +3,57 @@ package org.example.web;
 import org.example.service.AccountService;
 import org.example.dtos.AccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/v1")
 public class ServerController {
 
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/new-account")
-    public ModelAndView newAccountForm() {
-        System.out.println("hit end point for account");
-        ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("Account-form");
-        return mav;
-    }
-
-    @PostMapping("/Account")
-    public String createAccount(@ModelAttribute AccountDto accountDto) {
+    @PostMapping("/accounts")
+    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto) {
         System.out.println(accountDto.getName());
         accountService.createAccount(accountDto);
-        return "redirect:/"; // Redirect to the home page (or wherever)
+        return ResponseEntity.status(HttpStatus.CREATED).body(accountDto);
     }
 
+    @GetMapping(value = "/accounts/{id}",produces = {"application/json"})
+    public ResponseEntity<?> getAccountById(@PathVariable Long id) {
+        try {
+            AccountDto account = accountService.getAccount(id);
+            return ResponseEntity.ok(account);
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+    }
+
+    @GetMapping(value = "/accounts",params = { "!limit" })
+    public ResponseEntity<?> getAllAccounts() {
+        try {
+            return ResponseEntity.ok(accountService.getAllAccounts());
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
+
+
+
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleException(Exception ex) {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("errorMessage", ex.getMessage());
-        mav.setViewName("error");
-        return mav;
+    public ResponseEntity<Map<String, String>> handleException(Exception ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("errorMessage", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }

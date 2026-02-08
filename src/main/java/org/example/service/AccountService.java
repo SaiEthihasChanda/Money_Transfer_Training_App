@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component("AccountService")
 public class AccountService implements AccountServiceinterface {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger("todos-service");
@@ -23,6 +25,7 @@ public class AccountService implements AccountServiceinterface {
         logger.info("AccountRepository initialized");
     }
 
+
     @Override
     @Transactional
     public void createAccount(AccountDto account) {
@@ -34,8 +37,15 @@ public class AccountService implements AccountServiceinterface {
     }
 
     @Transactional
-    public Account getAccount(long id){
-        return accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account not found"));
+    public AccountDto getAccount(long id){
+        Account account = accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account not found"));
+        return (new AccountDto(account.getName(), account.getBalance()));
+    }
+
+    @Transactional
+    public List<AccountDto> getAllAccounts(){
+        List<Account> accounts = accountRepository.findAll();
+        return accounts.stream().map(acc -> new AccountDto(acc.getName(), acc.getBalance())).toList();
     }
 
 

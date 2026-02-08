@@ -36,6 +36,13 @@ public class Application {
         ConfigurableApplicationContext applicationContext = null;
         applicationContext = SpringApplication.run(Application.class, args);
 
+        AccountService accountService = applicationContext.getBean(AccountService.class);
+        TransactionService transactionService = applicationContext.getBean(TransactionService.class);
+
+        //accountService.createAccount(new AccountDto("Alice", 1000));
+        //accountService.createAccount(new AccountDto("Bob", 500));
+
+
 
         logger.info("-".repeat(50));
 
