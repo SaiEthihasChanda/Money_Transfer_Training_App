@@ -3,6 +3,7 @@ package org.example.web;
 import org.example.dtos.TransferDto;
 import org.example.service.AccountService;
 import org.example.dtos.AccountDto;
+import org.example.service.TransactionLogService;
 import org.example.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1")
 public class ServerController {
 
     @Autowired
@@ -21,6 +22,9 @@ public class ServerController {
 
     @Autowired
     private TransactionService transactionService;
+
+    @Autowired
+    private TransactionLogService transactionLogService;
 
     @PostMapping("/accounts")
     public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto) {
@@ -64,6 +68,49 @@ public class ServerController {
         }
     }
 
+    @GetMapping(value = "/transactions/{id}")
+    public ResponseEntity<?> getTransactionById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(transactionLogService.getTransactionById(id));
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+    }
+
+    @GetMapping(value = "/transactions/account/{accountId}")
+    public ResponseEntity<?> getAccountTransactionHistory(@PathVariable Long accountId) {
+        try {
+            return ResponseEntity.ok(transactionLogService.getAccountTransactionHistory(accountId));
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
+
+    @GetMapping(value = "/transactions/from/{fromAccountId}")
+    public ResponseEntity<?> getTransactionsByFromAccount(@PathVariable Long fromAccountId) {
+        try {
+            return ResponseEntity.ok(transactionLogService.getTransactionsByFromAccount(fromAccountId));
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
+
+    @GetMapping(value = "/transactions/to/{toAccountId}")
+    public ResponseEntity<?> getTransactionsByToAccount(@PathVariable Long toAccountId) {
+        try {
+            return ResponseEntity.ok(transactionLogService.getTransactionsByToAccount(toAccountId));
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleException(Exception ex) {
