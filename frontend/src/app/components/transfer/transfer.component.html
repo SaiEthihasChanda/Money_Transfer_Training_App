@@ -1,0 +1,131 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button mat-icon-button (click)="cancel()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">Transfer Money</span>
+</mat-toolbar>
+
+<div class="container">
+  <div *ngIf="isLoadingAccount" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading account information...</p>
+  </div>
+
+  <div *ngIf="!isLoadingAccount && account" class="transfer-content">
+    <!-- Account Balance Card -->
+    <mat-card class="balance-info-card mat-elevation-z2">
+      <mat-card-header>
+        <mat-icon class="balance-icon">account_balance_wallet</mat-icon>
+        <mat-card-title>Your Account</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="account-detail">
+          <span class="detail-label">Account Holder:</span>
+          <span class="detail-value">{{ account.holderName }}</span>
+        </div>
+        <div class="account-detail">
+          <span class="detail-label">Account ID:</span>
+          <span class="detail-value">{{ account.id }}</span>
+        </div>
+        <div class="account-detail balance-row">
+          <span class="detail-label">Available Balance:</span>
+          <span class="detail-value balance-amount">{{ formatCurrency(account.balance) }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Transfer Form Card -->
+    <mat-card class="transfer-form-card mat-elevation-z4">
+      <mat-card-header>
+        <mat-icon class="transfer-icon">send</mat-icon>
+        <mat-card-title>Transfer Details</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="form-field-full" appearance="outline">
+            <mat-label>From Account</mat-label>
+            <input
+              matInput
+              [value]="account.id + ' - ' + account.holderName"
+              readonly
+            />
+            <mat-icon matPrefix>person</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-full" appearance="outline">
+            <mat-label>To Account ID</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="toAccountId"
+              placeholder="Enter destination account ID"
+            />
+            <mat-icon matPrefix>account_circle</mat-icon>
+            <mat-error *ngIf="toAccountId?.hasError('required')">
+              Destination account ID is required
+            </mat-error>
+            <mat-error *ngIf="toAccountId?.hasError('min')">
+              Please enter a valid account ID
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-full" appearance="outline">
+            <mat-label>Amount</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="amount"
+              placeholder="Enter amount to transfer"
+            />
+            <span matPrefix>$&nbsp;</span>
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-error *ngIf="amount?.hasError('required')">
+              Amount is required
+            </mat-error>
+            <mat-error *ngIf="amount?.hasError('min')">
+              Amount must be greater than 0
+            </mat-error>
+            <mat-hint *ngIf="amount?.value && account">
+              Remaining balance: {{ formatCurrency(account.balance - amount.value) }}
+            </mat-hint>
+          </mat-form-field>
+
+          <div class="button-row">
+            <button
+              mat-raised-button
+              type="button"
+              (click)="cancel()"
+              [disabled]="isLoading"
+            >
+              Cancel
+            </button>
+            
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="isLoading || transferForm.invalid"
+            >
+              <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+              <span *ngIf="!isLoading">Transfer Money</span>
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Transfer Information -->
+    <mat-card class="info-card mat-elevation-z1">
+      <mat-card-content>
+        <h3><mat-icon>info</mat-icon> Transfer Information</h3>
+        <ul>
+          <li>Ensure the destination account ID is correct before confirming</li>
+          <li>Transfers are processed immediately and cannot be reversed</li>
+          <li>Your available balance will be updated after the transfer</li>
+          <li>A transaction record will be created for your reference</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

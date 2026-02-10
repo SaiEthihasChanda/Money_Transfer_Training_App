@@ -1,0 +1,75 @@
+/* Global Styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-field-full {
+  width: 100%;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.success-message {
+  color: #4caf50;
+  font-size: 14px;
+}
+
+.mat-mdc-raised-button {
+  margin: 8px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-failed {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.transaction-credit {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.transaction-debit {
+  color: #c62828;
+  font-weight: 500;
+}
+
+.mat-elevation-z4 {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),
+              0 4px 5px 0 rgba(0,0,0,.14),
+              0 1px 10px 0 rgba(0,0,0,.12);
+}
