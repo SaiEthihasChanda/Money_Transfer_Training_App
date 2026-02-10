@@ -16,6 +16,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private long id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     private String holderName;
     private String status;
     @Column(name = "last_updated_at")
@@ -23,28 +28,25 @@ public class Account {
 
     private int balance;
 
-
     @Override
     public String toString() {
-        return "Todo{" +
+        return "Account{" +
                 "id=" + id +
-                ", Name='" + holderName + '\'' +
-
-                ", updatedAt=" + lastupdatedAt +
+                ", holderName='" + holderName + '\'' +
+                ", status='" + status + '\'' +
+                ", lastupdatedAt=" + lastupdatedAt +
+                ", balance=" + balance +
                 '}';
     }
-
 
     public void credit(int amount) {
         this.balance += amount;
         this.lastupdatedAt = LocalDateTime.now();
     }
 
-
     public void debit(int amount) {
         this.balance -= amount;
         this.lastupdatedAt = LocalDateTime.now();
     }
-
 
 }

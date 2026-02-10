@@ -3,6 +3,7 @@ package org.example.web;
 import org.example.dtos.TransferDto;
 import org.example.service.AccountService;
 import org.example.dtos.AccountDto;
+import org.example.dtos.CreateAccountDto;
 import org.example.service.TransactionLogService;
 import org.example.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,17 @@ public class ServerController {
     @Autowired
     private TransactionLogService transactionLogService;
 
-    @PostMapping("/accounts")
-    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto) {
-        System.out.println(accountDto.getHolderName());
-        accountService.createAccount(accountDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(accountDto);
+
+    @PostMapping("/createaccount")
+    public ResponseEntity<?> createAccount(@RequestBody CreateAccountDto accountDto) {
+        try {
+            accountService.createAccount(accountDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully");
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
     }
 
     @GetMapping(value = "/accounts/{id}",produces = {"application/json"})
@@ -117,5 +124,43 @@ public class ServerController {
         Map<String, String> error = new HashMap<>();
         error.put("errorMessage", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+
+    @PutMapping("/accounts/{id}/set-password")
+    public ResponseEntity<?> setPassword(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        try {
+            String newPassword = request.get("newPassword");
+            if (newPassword == null || newPassword.isEmpty()) {
+                throw new RuntimeException("New password is required");
+            }
+            accountService.setPassword(id, newPassword);
+            return ResponseEntity.ok("Password set successfully");
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    @PutMapping("/accounts/{id}/change-password")
+    public ResponseEntity<?> changePassword(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        try {
+            String oldPassword = request.get("oldPassword");
+            String newPassword = request.get("newPassword");
+
+            if (oldPassword == null || oldPassword.isEmpty()) {
+                throw new RuntimeException("Old password is required");
+            }
+            if (newPassword == null || newPassword.isEmpty()) {
+                throw new RuntimeException("New password is required");
+            }
+
+            accountService.changePassword(id, oldPassword, newPassword);
+            return ResponseEntity.ok("Password changed successfully");
+        } catch (RuntimeException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("errorMessage", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
     }
 }

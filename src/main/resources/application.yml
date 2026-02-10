@@ -10,6 +10,8 @@ spring:
       ddl-auto: update
     show-sql: true
 
-
+jwt:
+  secret: mySecretKeyForJWTTokenGenerationAndValidation123456789
+  expiration: 3600000
 
 debug: true
