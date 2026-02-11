@@ -11,9 +11,10 @@ export class TransferService {
   constructor(private http: HttpClient) {}
 
   transfer(transferRequest: TransferRequest): Observable<string> {
-    return this.http.post<string>(
+    return this.http.post(
       `${environment.apiUrl}/transfer`,
-      transferRequest
+      transferRequest,
+      { responseType: 'text' }
     );
   }
 }
