@@ -28,7 +28,7 @@ public class ServerController {
     private TransactionLogService transactionLogService;
 
 
-    @PostMapping("/createaccount")
+    @PostMapping("/auth/createaccount")
     public ResponseEntity<?> createAccount(@RequestBody CreateAccountDto accountDto) {
         try {
             accountService.createAccount(accountDto);
