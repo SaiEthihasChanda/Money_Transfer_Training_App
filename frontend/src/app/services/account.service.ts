@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Account, CreateAccountRequest, ChangePasswordRequest, SetPasswordRequest } from '../models/api.models';
 import { environment } from '../../environments/environment';
 
@@ -24,7 +25,7 @@ export class AccountService {
 
   getBalance(id: number): Observable<number> {
     return this.http.get<Account>(`${environment.apiUrl}/accounts/${id}`)
-      .pipe();
+      .pipe(map(account => account.balance));
   }
 
   setPassword(accountId: number, request: SetPasswordRequest): Observable<string> {

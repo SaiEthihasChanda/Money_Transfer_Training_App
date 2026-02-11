@@ -87,7 +87,7 @@
               Amount must be greater than 0
             </mat-error>
             <mat-hint *ngIf="amount?.value && account">
-              Remaining balance: {{ formatCurrency(account.balance - amount.value) }}
+              Remaining balance: {{ formatCurrency(account.balance - (amount?.value || 0)) }}
             </mat-hint>
           </mat-form-field>
 

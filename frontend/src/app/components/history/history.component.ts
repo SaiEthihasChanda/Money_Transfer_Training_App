@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +23,8 @@ import { TransactionLog } from '../../models/api.models';
     MatIconModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    RouterLink
   ],
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
