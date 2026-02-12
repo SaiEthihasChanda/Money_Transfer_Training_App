@@ -1,122 +1,116 @@
-<mat-toolbar color="primary" class="app-toolbar">
-  <button mat-icon-button (click)="goBack()">
+<mat-toolbar class="app-toolbar px-3">
+  <button mat-icon-button (click)="goBack()" class="text-white">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <span class="toolbar-title">Transaction History</span>
+  <span class="toolbar-title text-white">Transaction History</span>
 </mat-toolbar>
 
-<div class="container">
-  <div *ngIf="isLoading" class="loading-container">
-    <mat-spinner></mat-spinner>
-    <p>Loading transaction history...</p>
+<div class="container py-5">
+  <div *ngIf="isLoading" class="loading-container text-center py-5">
+    <mat-spinner diameter="50" class="mx-auto"></mat-spinner>
+    <p class="mt-3 opacity-75">Loading transaction history...</p>
   </div>
 
-  <div *ngIf="!isLoading && errorMessage" class="error-container">
-    <mat-icon class="error-icon">error</mat-icon>
+  <div *ngIf="!isLoading && errorMessage" class="error-container p-3 rounded-3 mb-4">
+    <mat-icon class="error-icon me-2">error</mat-icon>
     <span>{{ errorMessage }}</span>
   </div>
 
-  <div *ngIf="!isLoading && !errorMessage" class="history-content">
-    <mat-card class="summary-card mat-elevation-z2">
-      <mat-card-content>
-        <div class="summary-item">
-          <mat-icon>receipt_long</mat-icon>
-          <div class="summary-details">
-            <span class="summary-label">Total Transactions</span>
-            <span class="summary-value">{{ transactions.length }}</span>
+  <div *ngIf="!isLoading && !errorMessage" class="history-content d-flex flex-column gap-4">
+    
+    <mat-card class="summary-card glass-card border-0">
+      <mat-card-content class="d-flex justify-content-center p-4">
+        <div class="summary-item d-flex align-items-center gap-3">
+          <mat-icon class="summary-icon text-info">receipt_long</mat-icon>
+          <div class="summary-details d-flex flex-column">
+            <span class="summary-label text-white-50 text-uppercase small fw-bold">Total Transactions</span>
+            <span class="summary-value h2 mb-0 fw-bold">{{ transactions.length }}</span>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="table-card mat-elevation-z4" *ngIf="transactions.length > 0">
-      <mat-card-header>
-        <mat-icon class="header-icon">history</mat-icon>
-        <mat-card-title>All Transactions</mat-card-title>
+    <mat-card class="table-card glass-card border-0 overflow-hidden" *ngIf="transactions.length > 0">
+      <mat-card-header class="p-4 border-bottom border-white border-opacity-10">
+        <mat-icon class="header-icon me-2">history</mat-icon>
+        <mat-card-title class="text-white mb-0">All Transactions</mat-card-title>
       </mat-card-header>
       
-      <mat-card-content>
-        <div class="table-container">
-          <table mat-table [dataSource]="transactions" class="transactions-table">
-            <!-- Transaction ID Column -->
+      <mat-card-content class="p-0">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="transactions" class="transactions-table w-100 bg-transparent">
+            
             <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <th mat-header-cell *matHeaderCellDef class="text-white-50">ID</th>
               <td mat-cell *matCellDef="let transaction">
-                <span class="transaction-id">#{{ transaction.id }}</span>
+                <span class="transaction-id text-info opacity-75">#{{ transaction.id }}</span>
               </td>
             </ng-container>
 
-            <!-- Date Column -->
             <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef>Date & Time</th>
-              <td mat-cell *matCellDef="let transaction">
-                <div class="date-cell">
-                  <mat-icon class="date-icon">event</mat-icon>
+              <th mat-header-cell *matHeaderCellDef class="text-white-50">Date & Time</th>
+              <td mat-cell *matCellDef="let transaction" class="text-white">
+                <div class="date-cell d-flex align-items-center gap-2">
+                  <mat-icon class="date-icon small opacity-50">event</mat-icon>
                   <span>{{ formatDate(transaction.createdOn) }}</span>
                 </div>
               </td>
             </ng-container>
 
-            <!-- Type Column -->
             <ng-container matColumnDef="type">
-              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <th mat-header-cell *matHeaderCellDef class="text-white-50">Type</th>
               <td mat-cell *matCellDef="let transaction">
-                <div class="type-cell" [ngClass]="getTransactionTypeClass(transaction)">
-                  <mat-icon>{{ getTransactionTypeIcon(transaction) }}</mat-icon>
-                  <span>{{ getTransactionType(transaction) }}</span>
+                <div class="type-badge d-flex align-items-center gap-1" [ngClass]="getTransactionTypeClass(transaction)">
+                  <mat-icon class="small-icon">{{ getTransactionTypeIcon(transaction) }}</mat-icon>
+                  <span class="small fw-bold">{{ getTransactionType(transaction) }}</span>
                 </div>
               </td>
             </ng-container>
 
-            <!-- Account Column -->
             <ng-container matColumnDef="account">
-              <th mat-header-cell *matHeaderCellDef>Account</th>
-              <td mat-cell *matCellDef="let transaction">
-                <div class="account-cell">
-                  <span class="account-label">
+              <th mat-header-cell *matHeaderCellDef class="text-white-50">Account</th>
+              <td mat-cell *matCellDef="let transaction" class="text-white">
+                <div class="account-cell d-flex flex-column">
+                  <span class="account-label text-white-50 x-small">
                     {{ getTransactionType(transaction) === 'DEBIT' ? 'To:' : 'From:' }}
                   </span>
-                  <span class="account-id">{{ getOtherAccountId(transaction) }}</span>
+                  <span class="account-id fw-medium">{{ getOtherAccountId(transaction) }}</span>
                 </div>
               </td>
             </ng-container>
 
-            <!-- Amount Column -->
             <ng-container matColumnDef="amount">
-              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <th mat-header-cell *matHeaderCellDef class="text-white-50">Amount</th>
               <td mat-cell *matCellDef="let transaction">
-                <span class="amount-cell" [ngClass]="getTransactionTypeClass(transaction)">
+                <span class="amount-text h6 fw-bold mb-0" [ngClass]="getTransactionTypeClass(transaction)">
                   {{ getTransactionType(transaction) === 'DEBIT' ? '-' : '+' }}
                   {{ formatCurrency(transaction.amount) }}
                 </span>
               </td>
             </ng-container>
 
-            <!-- Status Column -->
             <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <th mat-header-cell *matHeaderCellDef class="text-white-50">Status</th>
               <td mat-cell *matCellDef="let transaction">
-                <mat-chip class="status-badge" [ngClass]="getStatusClass(transaction.status)">
-                  <mat-icon *ngIf="transaction.status === 'SUCCESS'">check_circle</mat-icon>
-                  <mat-icon *ngIf="transaction.status === 'FAILED'">cancel</mat-icon>
+                <span class="status-chip" [ngClass]="getStatusClass(transaction.status)">
                   {{ transaction.status }}
-                </mat-chip>
+                </span>
               </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="transaction-row"></tr>
           </table>
         </div>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="empty-state-card" *ngIf="transactions.length === 0">
-      <mat-card-content>
-        <mat-icon class="empty-icon">receipt_long</mat-icon>
-        <h3>No Transactions Yet</h3>
-        <p>Your transaction history will appear here once you make your first transfer.</p>
-        <button mat-raised-button color="primary" [routerLink]="['/transfer']">
+    <mat-card class="glass-card text-center py-5" *ngIf="transactions.length === 0">
+      <mat-card-content class="d-flex flex-column align-items-center gap-3">
+        <mat-icon class="empty-icon opacity-25">receipt_long</mat-icon>
+        <h3 class="text-white">No Transactions Yet</h3>
+        <p class="text-white-50">Your transaction history will appear here soon.</p>
+        <button mat-flat-button color="accent" [routerLink]="['/transfer']" class="mt-2">
           Make a Transfer
         </button>
       </mat-card-content>

@@ -1,191 +1,76 @@
-.app-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
 }
 
-.toolbar-title {
-  font-size: 20px;
-  font-weight: 500;
+.glass-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
+/* --- THE OVERLAP FIX --- */
+
+/* 1. Wrapper Height & Spacing */
+::ng-deep .glass-input .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  padding-top: 10px !important;
 }
 
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  gap: 20px;
-  color: white;
+/* 2. Floating Label Fix (Lifted above the border) */
+::ng-deep .glass-input .mdc-floating-label--float-above {
+  background: #000 !important; /* Hide line behind label */
+  padding: 0 10px !important;
+  transform: translateY(-36px) scale(0.85) !important;
+  color: #00d4ff !important;
+  z-index: 5;
 }
 
-.transfer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+/* 3. Prefix & Suffix Alignment */
+::ng-deep .glass-input .mat-mdc-form-field-icon-prefix,
+::ng-deep .glass-input .mat-mdc-form-field-icon-suffix {
+  color: rgba(255, 255, 255, 0.4) !important;
+  padding: 12px 0 !important;
 }
 
-.balance-info-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+.currency-prefix {
+  color: #00d4ff;
+  font-weight: bold;
+  margin-right: 8px;
+  font-size: 1.1rem;
 }
 
-.balance-info-card mat-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+/* 4. Input Text Color */
+::ng-deep .glass-input input.mat-mdc-input-element {
+  color: white !important;
 }
 
-.balance-icon {
-  font-size: 28px;
-  width: 28px;
-  height: 28px;
-}
-
-.balance-info-card mat-card-title {
-  color: white;
-  margin: 0;
-}
-
-.account-detail {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.account-detail:last-child {
-  border-bottom: none;
-}
-
-.detail-label {
-  opacity: 0.9;
-}
-
-.detail-value {
-  font-weight: 500;
-}
-
-.balance-row {
-  margin-top: 8px;
-  padding-top: 16px;
-  border-top: 2px solid rgba(255, 255, 255, 0.3);
-}
+/* --- UI ELEMENTS --- */
 
 .balance-amount {
-  font-size: 24px;
-  font-weight: 700;
-  color: #4caf50;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
 }
 
-.transfer-form-card {
-  background: white;
+.btn-glow {
+  background-color: #00d4ff !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
 }
 
-.transfer-form-card mat-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+.app-toolbar {
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.transfer-icon {
-  font-size: 28px;
-  width: 28px;
-  height: 28px;
-  color: #667eea;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.form-field-full {
-  width: 100%;
-}
-
-.button-row {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.button-row button {
-  min-width: 140px;
-  height: 44px;
-}
-
-.button-row button mat-spinner {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.info-card {
-  background: #e3f2fd;
-}
-
-.info-card h3 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #1976d2;
-  margin-top: 0;
-}
-
-.info-card mat-icon {
-  color: #1976d2;
-}
-
-.info-card ul {
-  margin: 12px 0 0 0;
-  padding-left: 20px;
-  color: #424242;
-}
-
-.info-card li {
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-::ng-deep .success-snackbar {
-  background-color: #4caf50 !important;
-  color: white !important;
-}
-
-::ng-deep .error-snackbar {
-  background-color: #f44336 !important;
-  color: white !important;
-}
-
-::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
-  background-color: inherit !important;
-}
-
-::ng-deep .mat-mdc-snack-bar-container .mat-mdc-button {
-  color: white !important;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 20px 10px;
-  }
-
-  .button-row {
-    flex-direction: column-reverse;
-  }
-
-  .button-row button {
-    width: 100%;
-  }
+/* Fix for hint text (Remaining Balance) */
+::ng-deep .glass-input .mat-mdc-form-field-subscript-wrapper {
+  margin-top: 4px !important;
+  font-size: 11px !important;
 }

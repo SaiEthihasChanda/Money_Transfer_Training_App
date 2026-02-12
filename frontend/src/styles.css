@@ -1,75 +1,99 @@
-/* Global Styles */
+/* Global Reset & Base Theme */
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Roboto', sans-serif;
+  color: #e0e0e0; /* Light text for dark background */
 }
 
-body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+body.dark-theme {
+  /* Deep black with a very subtle radial spotlight for depth */
+  background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+  background-attachment: fixed;
 }
 
+/* Glassmorphism Containers */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
+/* This is your main transparent box */
 .card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 80vh;
+  background: rgba(255, 255, 255, 0.03); /* Transparent white */
+  backdrop-filter: blur(12px);           /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
+/* Inner component styling (Inputs/Boxes) */
 .form-field-full {
   width: 100%;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px;
 }
 
+/* Message Styles - Adjusted for Dark Mode */
 .error-message {
-  color: #f44336;
+  color: #ff6b6b; /* Brighter red for visibility */
   font-size: 12px;
   margin-top: 4px;
 }
 
 .success-message {
-  color: #4caf50;
+  color: #51cf66; /* Brighter green for visibility */
   font-size: 14px;
 }
 
-.mat-mdc-raised-button {
-  margin: 8px;
-}
-
+/* Status Badges */
 .status-badge {
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 6px 16px;
+  border-radius: 50px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .status-success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.2);
+  color: #81c784;
+  border: 1px solid rgba(129, 199, 132, 0.3);
 }
 
 .status-failed {
-  background-color: #ffebee;
-  color: #c62828;
+  background-color: rgba(198, 40, 40, 0.2);
+  color: #e57373;
+  border: 1px solid rgba(229, 115, 115, 0.3);
 }
 
+/* Transaction List Indicators */
 .transaction-credit {
-  color: #2e7d32;
+  color: #81c784;
   font-weight: 500;
 }
 
 .transaction-debit {
-  color: #c62828;
+  color: #e57373;
   font-weight: 500;
 }
 
-.mat-elevation-z4 {
-  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),
-              0 4px 5px 0 rgba(0,0,0,.14),
-              0 1px 10px 0 rgba(0,0,0,.12);
+/* Material Component Overrides for Dark Theme */
+.mat-mdc-card {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.mat-mdc-raised-button {
+  background-color: #3d5afe !important; /* Vibrant blue for CTAs */
+  color: white !important;
+  margin: 8px;
 }
