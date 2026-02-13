@@ -2,53 +2,45 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
-}
-
-/* Glassmorphism Toolbar */
-.app-toolbar {
-  background: rgba(0, 0, 0, 0.8) !important;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  color:White;
-  align-items: center;
+  background-color: #ffffff;
+  background-image: linear-gradient(135deg, #ffffff 0%, #f8fef8 100%);
+  color: #044014;
+  padding-top: 20px;
 }
 
 .spacer { flex: 1 1 auto; }
 
 /* Main Glass Container - Balance Card */
 .balance-card {
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: #ffffff !important;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid #368727 !important;
   border-radius: 24px !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 10px 30px rgba(54, 135, 39, 0.15) !important;
 }
 
 .balance-amount {
   font-size: 3.5rem;
   font-weight: 800;
-  color: #00d4ff; /* Vibrant Cyan */
-  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  color: #6AD539; /* Professional Green */
+  text-shadow: 0 2px 10px rgba(106, 213, 57, 0.2);
 }
 
 /* Action Cards - Interactive Boxes */
 .action-card {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #ffffff !important;
+  border: 2px solid #368727 !important;
   border-radius: 20px !important;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(54, 135, 39, 0.1);
 }
 
 .action-card:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: #f8fef8 !important;
   transform: translateY(-8px);
-  border-color: rgba(0, 212, 255, 0.4) !important;
+  border-color: #6AD539 !important;
+  box-shadow: 0 8px 25px rgba(106, 213, 57, 0.2);
 }
 
 .action-icon {
@@ -57,19 +49,19 @@
   height: 56px;
 }
 
-.transfer-icon { color: #00d4ff; }
-.history-icon { color: #bb86fc; }
+.transfer-icon { color: #368727; }
+.history-icon { color: #044014; }
 
 /* Status Styles */
-.status-active { color: #00ff88; font-weight: bold; }
-.status-inactive { color: #ffb300; font-weight: bold; }
+.status-active { color: #6AD539; font-weight: bold; }
+.status-inactive { color: #d97706; font-weight: bold; }
 
 /* Loading & Error */
 .error-container {
-  background-color: rgba(244, 67, 54, 0.1);
-  border: 1px solid rgba(244, 67, 54, 0.3);
-  color: #ff8a80;
+  background-color: rgba(196, 30, 58, 0.1);
+  border: 1px solid rgba(196, 30, 58, 0.3);
+  color: #c41e3a;
 }
 
-.subtitle { color: rgba(255, 255, 255, 0.5); }
+.subtitle { color: rgba(4, 64, 20, 0.6); }
 .pointer-cursor { cursor: pointer; }

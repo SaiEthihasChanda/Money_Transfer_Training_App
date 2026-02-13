@@ -1,8 +1,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #000000;
-  background-image: radial-gradient(circle at center, #111111 0%, #000000 100%);
+  background-color: #ffffff;
+  background-image: linear-gradient(135deg, #ffffff 0%, #f8fef8 100%);
+  padding-top: 0;
 }
 
 .card-container {
@@ -15,33 +16,34 @@
 .login-card {
   max-width: 420px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: #ffffff !important;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid #368727 !important;
   border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(54, 135, 39, 0.15);
 }
 
 /* --- OVERLAP FIXES --- */
 
 /* 1. Ensure the field has enough height to separate text from label */
 ::ng-deep .glass-input .mat-mdc-text-field-wrapper {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: #ffffff !important;
   padding-top: 8px !important; /* Space for the floating label */
 }
 
 /* 2. Fix Floating Label: Lift it above the box so it never touches the icons or text */
 ::ng-deep .glass-input .mdc-floating-label--float-above {
-  background: #000; /* Solid background to hide the border line behind label */
+  background: #ffffff; /* Solid background to hide the border line behind label */
   padding: 0 10px !important;
   margin-left: -4px;
   transform: translateY(-36px) scale(0.85) !important; /* The Magic Lift */
-  color: #00d4ff !important;
+  color: #368727 !important;
   z-index: 5;
 }
 
 /* 3. Fix Input Spacing: Ensure text doesn't hit the bottom or top */
 ::ng-deep .glass-input input.mat-mdc-input-element {
-  color: white !important;
+  color: #044014 !important;
   padding-bottom: 5px !important;
 }
 
@@ -49,36 +51,40 @@
 ::ng-deep .glass-input .mat-mdc-form-field-icon-prefix,
 ::ng-deep .glass-input .mat-mdc-form-field-icon-suffix {
   padding: 12px 0 !important;
-  color: rgba(255, 255, 255, 0.5);
+  color: #368727;
 }
 
 /* 5. Outline Color */
 ::ng-deep .glass-input .mdc-notched-outline__leading,
 ::ng-deep .glass-input .mdc-notched-outline__notch,
 ::ng-deep .glass-input .mdc-notched-outline__trailing {
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: #368727 !important;
 }
 
 /* Focus State */
 ::ng-deep .glass-input.mat-form-field-focused .mdc-notched-outline__leading,
 ::ng-deep .glass-input.mat-form-field-focused .mdc-notched-outline__notch,
 ::ng-deep .glass-input.mat-form-field-focused .mdc-notched-outline__trailing {
-  border-color: #00d4ff !important;
+  border-color: #044014 !important;
   border-width: 2px !important;
 }
 
 /* --- UI ELEMENTS --- */
 
 .btn-glow {
-  background: #00d4ff !important;
-  color: #000 !important;
+  background: #368727 !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
   border-radius: 12px !important;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(54, 135, 39, 0.3);
+}
+
+.btn-glow:hover {
+  background: #6AD539 !important;
 }
 
 .glass-error {
-  background: rgba(255, 82, 82, 0.1);
-  border: 1px solid rgba(255, 82, 82, 0.2);
-  color: #ff8a80;
+  background: rgba(196, 30, 58, 0.1);
+  border: 1px solid rgba(196, 30, 58, 0.3);
+  color: #c41e3a;
 }

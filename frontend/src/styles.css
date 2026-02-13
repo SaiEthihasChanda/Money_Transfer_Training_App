@@ -3,12 +3,12 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  color: #e0e0e0; /* Light text for dark background */
+  color: #044014; /* Dark green text */
 }
 
 body.dark-theme {
-  /* Deep black with a very subtle radial spotlight for depth */
-  background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+  /* Professional white background with subtle green gradient */
+  background: linear-gradient(135deg, #ffffff 0%, #f8fef8 100%);
   background-attachment: fixed;
 }
 
@@ -25,32 +25,32 @@ body.dark-theme {
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-  background: rgba(255, 255, 255, 0.03); /* Transparent white */
+  background: rgba(255, 255, 255, 0.95); /* Clean white */
   backdrop-filter: blur(12px);           /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid #368727;
   border-radius: 20px;
   padding: 30px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 35px rgba(54, 135, 39, 0.2);
 }
 
 /* Inner component styling (Inputs/Boxes) */
 .form-field-full {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: white !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: #ffffff !important;
+  color: #044014 !important;
+  border: 1px solid #368727 !important;
   border-radius: 8px;
 }
 
-/* Message Styles - Adjusted for Dark Mode */
+/* Message Styles - Adjusted for Green Theme */
 .error-message {
-  color: #ff6b6b; /* Brighter red for visibility */
+  color: #c41e3a; /* Professional red for errors */
   font-size: 12px;
   margin-top: 4px;
 }
 
 .success-message {
-  color: #51cf66; /* Brighter green for visibility */
+  color: #368727; /* Green for success */
   font-size: 14px;
 }
 
@@ -64,36 +64,36 @@ body.dark-theme {
 }
 
 .status-success {
-  background-color: rgba(46, 125, 50, 0.2);
-  color: #81c784;
-  border: 1px solid rgba(129, 199, 132, 0.3);
+  background-color: rgba(106, 213, 57, 0.15);
+  color: #368727;
+  border: 1px solid #368727;
 }
 
 .status-failed {
-  background-color: rgba(198, 40, 40, 0.2);
-  color: #e57373;
-  border: 1px solid rgba(229, 115, 115, 0.3);
+  background-color: rgba(196, 30, 58, 0.15);
+  color: #c41e3a;
+  border: 1px solid #c41e3a;
 }
 
 /* Transaction List Indicators */
 .transaction-credit {
-  color: #81c784;
+  color: #6AD539;
   font-weight: 500;
 }
 
 .transaction-debit {
-  color: #e57373;
+  color: #c41e3a;
   font-weight: 500;
 }
 
-/* Material Component Overrides for Dark Theme */
+/* Material Component Overrides for Green Theme */
 .mat-mdc-card {
-  background-color: transparent !important;
-  color: white !important;
+  background-color: #ffffff !important;
+  color: #044014 !important;
 }
 
 .mat-mdc-raised-button {
-  background-color: #3d5afe !important; /* Vibrant blue for CTAs */
+  background-color: #368727 !important; /* Professional green for CTAs */
   color: white !important;
   margin: 8px;
 }
