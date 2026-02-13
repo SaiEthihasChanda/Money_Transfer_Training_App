@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Getter
 @Setter
@@ -39,7 +40,7 @@ public class TransactionLog {
 
     @PrePersist
     protected void onCreate() {
-        createdOn = LocalDateTime.now();
+        createdOn = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
     }
 
     @Override
