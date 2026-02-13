@@ -13,7 +13,8 @@ import java.time.ZoneId;
 @Table(name = "transaction_logs")
 public class TransactionLog {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
+    @SequenceGenerator(name = "transaction_seq", sequenceName = "transaction_sequence", initialValue = 5005, allocationSize = 1)
     @Column(name = "id")
     private long id;
 

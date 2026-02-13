@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @Table(name="accounts")
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
+    @SequenceGenerator(name = "account_seq", sequenceName = "account_sequence", initialValue = 2002, allocationSize = 1)
     @Column(name="id")
     private long id;
 
