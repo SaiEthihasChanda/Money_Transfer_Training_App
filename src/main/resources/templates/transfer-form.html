@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transfer Money</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="container">
+
+<div class="display-1">Transfer Money</div>
+<hr/>
+
+<a class="btn btn-secondary mb-3" href="/">Back</a>
+
+<div class="row">
+    <div class="col-md-5">
+        <form action="/transfer" method="post">
+            <div class="mb-3">
+                <label for="fromAccountId" class="form-label">From Account ID</label>
+                <input type="number" class="form-control" id="fromAccountId"
+                       name="fromAccountId" required min="1"/>
+            </div>
+            <div class="mb-3">
+                <label for="toAccountId" class="form-label">To Account ID</label>
+                <input type="number" class="form-control" id="toAccountId"
+                       name="toAccountId" required min="1"/>
+            </div>
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount (₹)</label>
+                <input type="number" class="form-control" id="amount"
+                       name="amount" required min="1"/>
+                <div class="form-text">Transfer more than ₹100 to earn reward points.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Transfer</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
