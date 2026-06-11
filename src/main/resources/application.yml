@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/Money_db
+    username: root
+    password: Root123$
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  secret: mySecretKeyForJWTTokenGenerationAndValidation123456789
+  expiration: 3600000
+
+debug: true

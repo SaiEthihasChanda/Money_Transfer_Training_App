@@ -16,6 +16,22 @@
       <p class="subtitle fs-5">Manage your account and transactions</p>
     </div>
 
+    <!-- Reward points strip -->
+    <div class="reward-strip mb-4 d-flex align-items-center justify-content-between px-4 py-3 rounded-3"
+         (click)="navigateToRewards()" style="cursor: pointer;">
+      <div class="d-flex align-items-center gap-3">
+        <mat-icon style="color: #f9a825; font-size: 28px; width: 28px; height: 28px;">emoji_events</mat-icon>
+        <div>
+          <p class="mb-0 small fw-semibold" style="color: #044014; opacity: 0.7;">Your Reward Points</p>
+          <span class="fw-bold fs-4" style="color: #044014;">{{ rewardPoints }} pts</span>
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-1" style="color: #368727;">
+        <span class="small fw-semibold">View Details</span>
+        <mat-icon>chevron_right</mat-icon>
+      </div>
+    </div>
+
     <mat-card class="balance-card border-0 mb-5">
       <mat-card-content class="p-4">
         <div class="d-flex align-items-center mb-3">
@@ -61,6 +77,18 @@
             <mat-icon class="action-icon history-icon mb-3">history</mat-icon>
             <h3 class="fw-bold h4" style="color: #044014;">Transaction History</h3>
             <p class="mb-0" style="color: #044014; opacity: 0.7;">View your transaction records</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-md-6" (click)="navigateToRewards()">
+        <mat-card class="action-card h-100 border-0 pointer-cursor">
+          <mat-card-content class="p-5 text-center">
+            <mat-icon class="action-icon rewards-icon mb-3">star</mat-icon>
+            <h3 class="fw-bold h4" style="color: #044014;">Reward Points</h3>
+            <p class="mb-0" style="color: #044014; opacity: 0.7;">
+              {{ rewardPoints }} points earned
+            </p>
           </mat-card-content>
         </mat-card>
       </div>

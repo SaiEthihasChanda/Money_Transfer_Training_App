@@ -1,0 +1,120 @@
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #044014;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.title-icon {
+  color: #368727;
+  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.page-subtitle {
+  color: #044014;
+  opacity: 0.65;
+  margin: 0;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(54, 135, 39, 0.2) !important;
+  box-shadow: 0 4px 20px rgba(4, 64, 20, 0.08) !important;
+  border-radius: 16px !important;
+}
+
+/* Points summary */
+.points-card {
+  background: linear-gradient(135deg, rgba(54, 135, 39, 0.12), rgba(4, 64, 20, 0.06)) !important;
+}
+
+.points-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #368727, #044014);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.points-icon {
+  color: white;
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+}
+
+.label-text {
+  color: #044014;
+  opacity: 0.65;
+  font-size: 0.9rem;
+}
+
+.points-value {
+  color: #044014;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.points-label {
+  color: #368727;
+  font-size: 1.2rem;
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+/* Table */
+.rewards-table th {
+  background-color: rgba(4, 64, 20, 0.06);
+  color: #044014;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(54, 135, 39, 0.2);
+}
+
+.rewards-table td {
+  border-bottom: 1px solid rgba(54, 135, 39, 0.1);
+  padding: 14px 16px;
+}
+
+.reward-row:hover {
+  background-color: rgba(54, 135, 39, 0.05);
+}
+
+.points-badge {
+  background: linear-gradient(135deg, #368727, #044014);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.small-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.error-container {
+  background: rgba(211, 47, 47, 0.08);
+  border: 1px solid rgba(211, 47, 47, 0.25);
+  color: #c62828;
+}
+
+.error-icon {
+  color: #c62828;
+}
+
+.btn-glow {
+  background: linear-gradient(135deg, #368727, #044014);
+  color: white;
+}

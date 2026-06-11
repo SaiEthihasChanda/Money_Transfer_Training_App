@@ -53,3 +53,17 @@ export interface ChangePasswordRequest {
 export interface SetPasswordRequest {
   newPassword: string;
 }
+
+export interface RewardEntry {
+  id: number;
+  transactionLogId: number;
+  pointsAwarded: number;
+  description: string;
+  createdAt: string;
+}
+
+export interface RewardSummary {
+  accountId: number;
+  totalPoints: number;
+  history: RewardEntry[];
+}

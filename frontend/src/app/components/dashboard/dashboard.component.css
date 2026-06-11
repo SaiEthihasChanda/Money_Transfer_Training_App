@@ -51,6 +51,17 @@
 
 .transfer-icon { color: #368727; }
 .history-icon { color: #044014; }
+.rewards-icon { color: #f9a825; }
+
+.reward-strip {
+  background: linear-gradient(135deg, rgba(249, 168, 37, 0.08), rgba(54, 135, 39, 0.06));
+  border: 1.5px solid rgba(249, 168, 37, 0.35);
+  transition: background 0.2s;
+}
+
+.reward-strip:hover {
+  background: linear-gradient(135deg, rgba(249, 168, 37, 0.14), rgba(54, 135, 39, 0.10));
+}
 
 /* Status Styles */
 .status-active { color: #6AD539; font-weight: bold; }
