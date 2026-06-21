@@ -12,7 +12,9 @@ export class AccountService {
   constructor(private http: HttpClient) {}
 
   createAccount(account: CreateAccountRequest): Observable<string> {
-    return this.http.post<string>(`${environment.apiUrl}/createaccount`, account);
+    return this.http.post(`${environment.apiUrl}/auth/createaccount`, account, {
+      responseType: 'text'
+    });
   }
 
   getAccount(id: number): Observable<Account> {

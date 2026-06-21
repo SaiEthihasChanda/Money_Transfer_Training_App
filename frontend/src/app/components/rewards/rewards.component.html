@@ -1,14 +1,5 @@
 <div class="container py-5">
 
-  <!-- Page header -->
-  <div class="page-header mb-4">
-    <h1 class="page-title">
-      <mat-icon class="title-icon">star</mat-icon>
-      Reward Points
-    </h1>
-    <p class="page-subtitle">Points earned from your eligible transfers</p>
-  </div>
-
   <!-- Loading -->
   <div *ngIf="isLoading" class="loading-container text-center py-5">
     <mat-spinner diameter="50" class="mx-auto"></mat-spinner>
@@ -24,14 +15,20 @@
 
   <div *ngIf="!isLoading && !errorMessage && rewardSummary" class="d-flex flex-column gap-4">
 
-    <!-- Points summary card -->
+    <!-- Combined hero: title + total points in one section -->
     <mat-card class="glass-card points-card">
-      <mat-card-content class="p-4 d-flex align-items-center gap-4">
-        <div class="points-icon-wrapper">
-          <mat-icon class="points-icon">emoji_events</mat-icon>
+      <mat-card-content class="p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="points-icon-wrapper">
+            <mat-icon class="points-icon">emoji_events</mat-icon>
+          </div>
+          <div>
+            <h1 class="hero-heading mb-1">Reward Points</h1>
+            <p class="mb-0 label-text">Points earned from your eligible transfers</p>
+          </div>
         </div>
-        <div>
-          <p class="mb-1 label-text">Total Reward Points</p>
+        <div class="text-end">
+          <p class="mb-1 label-text">Total Balance</p>
           <span class="points-value">{{ rewardSummary.totalPoints }}</span>
           <span class="points-label ms-2">pts</span>
         </div>
@@ -69,7 +66,7 @@
         <p style="color: #044014; opacity: 0.7;">
           Transfer more than ₹100 to another account to start earning points.
         </p>
-        <button mat-flat-button class="btn-glow mt-2" routerLink="/transfer">
+        <button mat-flat-button class="btn-glow mt-2" (click)="navigateToTransfer()">
           Make a Transfer
         </button>
       </mat-card-content>

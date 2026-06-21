@@ -60,35 +60,33 @@
       </mat-card-content>
     </mat-card>
 
-    <div class="row g-4 action-cards">
-      <div class="col-md-6" (click)="navigateToTransfer()">
-        <mat-card class="action-card h-100 border-0 pointer-cursor">
-          <mat-card-content class="p-5 text-center">
-            <mat-icon class="action-icon transfer-icon mb-3">send</mat-icon>
-            <h3 class="fw-bold h4" style="color: #044014;">Transfer Money</h3>
-            <p class="mb-0" style="color: #044014; opacity: 0.7;">Send money to another account</p>
+    <div class="row g-3 action-cards">
+      <div class="col-4" (click)="navigateToTransfer()">
+        <mat-card class="action-card border-0 pointer-cursor">
+          <mat-card-content class="action-content text-center">
+            <mat-icon class="action-icon transfer-icon">send</mat-icon>
+            <h3 class="action-title" style="color: #044014;">Transfer Money</h3>
+            <p class="action-desc" style="color: #044014; opacity: 0.65;">Send to another account</p>
           </mat-card-content>
         </mat-card>
       </div>
 
-      <div class="col-md-6" (click)="navigateToHistory()">
-        <mat-card class="action-card h-100 border-0 pointer-cursor">
-          <mat-card-content class="p-5 text-center">
-            <mat-icon class="action-icon history-icon mb-3">history</mat-icon>
-            <h3 class="fw-bold h4" style="color: #044014;">Transaction History</h3>
-            <p class="mb-0" style="color: #044014; opacity: 0.7;">View your transaction records</p>
+      <div class="col-4" (click)="navigateToHistory()">
+        <mat-card class="action-card border-0 pointer-cursor">
+          <mat-card-content class="action-content text-center">
+            <mat-icon class="action-icon history-icon">history</mat-icon>
+            <h3 class="action-title" style="color: #044014;">History</h3>
+            <p class="action-desc" style="color: #044014; opacity: 0.65;">View transactions</p>
           </mat-card-content>
         </mat-card>
       </div>
 
-      <div class="col-md-6" (click)="navigateToRewards()">
-        <mat-card class="action-card h-100 border-0 pointer-cursor">
-          <mat-card-content class="p-5 text-center">
-            <mat-icon class="action-icon rewards-icon mb-3">star</mat-icon>
-            <h3 class="fw-bold h4" style="color: #044014;">Reward Points</h3>
-            <p class="mb-0" style="color: #044014; opacity: 0.7;">
-              {{ rewardPoints }} points earned
-            </p>
+      <div class="col-4" (click)="navigateToRewards()">
+        <mat-card class="action-card border-0 pointer-cursor">
+          <mat-card-content class="action-content text-center">
+            <mat-icon class="action-icon rewards-icon">star</mat-icon>
+            <h3 class="action-title" style="color: #044014;">Rewards</h3>
+            <p class="action-desc" style="color: #044014; opacity: 0.65;">{{ rewardPoints }} points earned</p>
           </mat-card-content>
         </mat-card>
       </div>

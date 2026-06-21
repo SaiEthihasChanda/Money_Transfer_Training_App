@@ -39,6 +39,11 @@
           <span *ngIf="!isLoading">SIGN IN</span>
         </button>
 
+        <p class="text-center mt-3 mb-0 register-link">
+          Don't have an account?
+          <a (click)="goToRegister()">Create one</a>
+        </p>
+
       </form>
     </mat-card-content>
   </mat-card>

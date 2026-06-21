@@ -44,6 +44,14 @@ public class AccountService implements AccountServiceinterface {
 
     @Transactional
     public void createAccount(CreateAccountDto accountDto) {
+        // Validate the password against the security constraints
+        validatePassword(accountDto.getPassword());
+
+        // Reject duplicate usernames so login stays unambiguous
+        if (userRepository.findByUsername(accountDto.getHolderName()).isPresent()) {
+            throw new RuntimeException("An account with this name already exists. Please choose a different name.");
+        }
+
         // Create user first
         User user = new User();
         user.setUsername(accountDto.getHolderName());
@@ -59,6 +67,29 @@ public class AccountService implements AccountServiceinterface {
         acc.setLastupdatedAt(LocalDateTime.now());
 
         accountRepository.save(acc);
+    }
+
+    /**
+     * Validates that a password meets the security constraints:
+     * minimum 8 characters, at least one uppercase letter, one lowercase
+     * letter, one digit, and one special character.
+     */
+    private void validatePassword(String password) {
+        if (password == null || password.length() < 8) {
+            throw new RuntimeException("Password must be at least 8 characters long.");
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            throw new RuntimeException("Password must contain at least one uppercase letter.");
+        }
+        if (!password.matches(".*[a-z].*")) {
+            throw new RuntimeException("Password must contain at least one lowercase letter.");
+        }
+        if (!password.matches(".*[0-9].*")) {
+            throw new RuntimeException("Password must contain at least one number.");
+        }
+        if (!password.matches(".*[^A-Za-z0-9].*")) {
+            throw new RuntimeException("Password must contain at least one special character.");
+        }
     }
 
     @Transactional

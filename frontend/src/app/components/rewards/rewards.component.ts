@@ -73,4 +73,8 @@ export class RewardsComponent implements OnInit {
   navigateToDashboard(): void {
     this.router.navigate(['/dashboard']);
   }
+
+  navigateToTransfer(): void {
+    this.router.navigate(['/transfer']);
+  }
 }

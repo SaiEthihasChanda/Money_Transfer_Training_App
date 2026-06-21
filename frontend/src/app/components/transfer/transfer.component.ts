@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,6 +36,7 @@ import { Account, TransferRequest } from '../../models/api.models';
   styleUrls: ['./transfer.component.css']
 })
 export class TransferComponent implements OnInit {
+  @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   transferForm: FormGroup;
   account: Account | null = null;
   isLoading = false;
@@ -126,8 +127,15 @@ export class TransferComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
         this.showSuccess('Transfer completed successfully!');
-        this.transferForm.reset();
-        
+
+        // resetForm() also clears the "submitted" state on the form directive,
+        // so Material does not re-flag the empty fields as invalid afterwards.
+        if (this.formDirective) {
+          this.formDirective.resetForm();
+        } else {
+          this.transferForm.reset();
+        }
+
         // Reload account data to show updated balance
         this.loadAccountData();
       },

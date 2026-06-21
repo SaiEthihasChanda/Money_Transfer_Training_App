@@ -1,0 +1,102 @@
+<div class="card-container">
+  <mat-card class="register-card glass-card">
+    <mat-card-header class="text-center d-block pt-4 mb-3">
+      <mat-card-title class="register-title justify-content-center fw-bold mb-1" style="color: #044014;">
+        <mat-icon class="title-icon me-2" style="color: #368727;">account_balance</mat-icon>
+        <span>Create Account</span>
+      </mat-card-title>
+      <mat-card-subtitle style="color: #044014; opacity: 0.7;">
+        Open a new account and start transferring
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="px-4 pb-4">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+
+        <!-- Account holder name -->
+        <mat-form-field class="glass-input mb-2" appearance="outline">
+          <mat-label>Account Holder Name</mat-label>
+          <input matInput formControlName="holderName" placeholder="e.g. Alice" autocomplete="username" />
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="holderName?.hasError('required')">Name is required</mat-error>
+          <mat-error *ngIf="holderName?.hasError('minlength')">Name must be at least 3 characters</mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field class="glass-input mb-1" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                 placeholder="Password" autocomplete="new-password" />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" class="opacity-75">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="password?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+
+        <!-- Password constraints checklist -->
+        <div class="password-rules mb-3 p-3 rounded-3">
+          <p class="rules-title mb-2">Your password must contain:</p>
+          <ul class="rules-list">
+            <li [class.met]="passwordChecks.length">
+              <mat-icon>{{ passwordChecks.length ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              At least 8 characters
+            </li>
+            <li [class.met]="passwordChecks.uppercase">
+              <mat-icon>{{ passwordChecks.uppercase ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              One uppercase letter (A–Z)
+            </li>
+            <li [class.met]="passwordChecks.lowercase">
+              <mat-icon>{{ passwordChecks.lowercase ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              One lowercase letter (a–z)
+            </li>
+            <li [class.met]="passwordChecks.number">
+              <mat-icon>{{ passwordChecks.number ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              One number (0–9)
+            </li>
+            <li [class.met]="passwordChecks.special">
+              <mat-icon>{{ passwordChecks.special ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              One special character (e.g. !&#64;#$)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Confirm password -->
+        <mat-form-field class="glass-input mb-2" appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword"
+                 placeholder="Re-enter password" autocomplete="new-password" />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPasswordVisibility()" class="opacity-75">
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="confirmPassword?.hasError('required')">Please confirm your password</mat-error>
+          <mat-error *ngIf="confirmPassword?.hasError('mismatch')">Passwords do not match</mat-error>
+        </mat-form-field>
+
+        <!-- Starting balance info -->
+        <div class="balance-note d-flex align-items-center p-3 rounded-3 mb-3">
+          <mat-icon class="me-2">account_balance_wallet</mat-icon>
+          <span class="small">Your account will start with a balance of <strong>₹{{ startingBalance }}</strong>.</span>
+        </div>
+
+        <!-- Server error -->
+        <div class="glass-error d-flex align-items-center p-3 rounded-3 mb-3" *ngIf="errorMessage">
+          <mat-icon class="me-2 small">error</mat-icon>
+          <span class="small fw-medium">{{ errorMessage }}</span>
+        </div>
+
+        <button mat-flat-button class="btn-glow py-4 mt-1" type="submit" [disabled]="isLoading">
+          <mat-spinner *ngIf="isLoading" diameter="20" class="me-2 d-inline-block"></mat-spinner>
+          <span *ngIf="!isLoading">CREATE ACCOUNT</span>
+        </button>
+
+        <p class="text-center mt-3 mb-0 login-link">
+          Already have an account?
+          <a (click)="goToLogin()">Sign in</a>
+        </p>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

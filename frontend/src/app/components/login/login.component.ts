@@ -100,4 +100,8 @@ export class LoginComponent {
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
+
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
 }
