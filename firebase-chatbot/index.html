@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Browser LLM Chatbot</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Your Free In-Browser Chatbot</h1>
+        <p class="subtitle">
+          Runs entirely in your browser via WebGPU — no server, no API keys,
+          no per-request cost. The model downloads once and is cached locally.
+        </p>
+      </header>
+
+      <section id="setup">
+        <label for="model-select">Model</label>
+        <select id="model-select"></select>
+        <button id="load-btn">Load model</button>
+        <div id="progress-wrap" class="hidden">
+          <div id="progress-bar"><div id="progress-fill"></div></div>
+          <div id="progress-text"></div>
+        </div>
+        <div id="status" class="status"></div>
+      </section>
+
+      <section id="chat" class="hidden">
+        <div id="messages"></div>
+        <form id="chat-form">
+          <textarea
+            id="chat-input"
+            placeholder="Ask me anything..."
+            rows="2"
+          ></textarea>
+          <button id="send-btn" type="submit">Send</button>
+        </form>
+        <div class="chat-actions">
+          <button id="reset-btn" type="button">Clear conversation</button>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
